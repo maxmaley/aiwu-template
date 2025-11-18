@@ -1,0 +1,942 @@
+.aiwu-templates-container, .aiwu-templates-container * {
+    box-sizing: border-box !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+}
+
+.aiwu-templates-container {
+    background: linear-gradient(135deg, #0f1419 0%, #1a252f 100%) !important;
+    padding: 0 !important;
+    color: #fff !important;
+    text-align: center !important;
+    position: relative !important;
+}
+
+.aiwu-templates-container::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: radial-gradient(circle at 20% 30%, rgba(255, 92, 53, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 50%) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+.aiwu-templates-inner {
+    position: relative !important;
+    z-index: 10 !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 80px 20px !important;
+}
+
+.aiwu-templates-header { margin-bottom: 60px !important; }
+
+.aiwu-templates-title {
+    font-size: clamp(36px, 5vw, 56px) !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin: 0 0 16px 0 !important;
+}
+
+.aiwu-templates-title span {
+    background: linear-gradient(135deg, #FF5C35 0%, #a855f7 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.aiwu-templates-subtitle {
+    color: rgba(255,255,255,0.6) !important;
+    font-size: 18px !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+}
+
+.aiwu-filters-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 16px !important;
+    margin: 40px 0 40px 0 !important;
+    padding: 0 !important;
+    flex-wrap: wrap !important;
+}
+
+.aiwu-filters-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+}
+
+.aiwu-search-wrapper {
+    position: relative !important;
+    flex: 1 !important;
+    min-width: 280px !important;
+    max-width: 400px !important;
+}
+
+.aiwu-search-icon {
+    position: absolute !important;
+    left: 16px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: rgba(255,255,255,0.4) !important;
+    pointer-events: none !important;
+}
+
+.aiwu-search-input {
+    width: 100% !important;
+    padding: 14px 20px 14px 44px !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    background: rgba(255,255,255,0.05) !important;
+    color: #fff !important;
+    font-size: 15px !important;
+    outline: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.aiwu-search-input::placeholder { color: rgba(255,255,255,0.4) !important; }
+.aiwu-search-input:focus { border-color: #FF5C35 !important; background: rgba(255,255,255,0.08) !important; }
+
+.aiwu-filter-select {
+    padding: 14px 20px !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    background: rgba(255,255,255,0.1) !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    outline: none !important;
+    transition: all 0.3s ease !important;
+    appearance: none !important;
+    cursor: pointer !important;
+    min-width: 160px !important;
+}
+
+.aiwu-filter-select option { background: #1a252f !important; color: #ffffff !important; }
+
+.aiwu-clear-btn {
+    background: transparent !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    color: rgba(255,255,255,0.7) !important;
+    padding: 14px 20px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+    font-weight: 600 !important;
+}
+
+.aiwu-clear-btn:hover {
+    border-color: #FF5C35 !important;
+    color: #FF5C35 !important;
+}
+
+.aiwu-apply-btn {
+    background: linear-gradient(135deg, #FF5C35 0%, #a855f7 100%) !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.aiwu-apply-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(255, 92, 53, 0.3) !important;
+}
+
+.aiwu-results-count {
+    font-size: 14px !important;
+    color: rgba(255,255,255,0.6) !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    margin-left: auto !important;
+}
+
+.aiwu-templates-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important; 
+    gap: 32px !important; 
+    margin: 0 0 60px 0 !important; 
+}
+
+.aiwu-template-card {
+    background: rgba(12, 8, 28, 0.6) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    text-align: left !important;
+    position: relative !important;
+    cursor: pointer !important;
+}
+
+.aiwu-template-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: radial-gradient(circle at center, rgba(255, 92, 53, 0.1) 0%, transparent 70%) !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+    pointer-events: none !important;
+}
+
+.aiwu-template-card:hover::before { opacity: 1 !important; }
+
+.aiwu-template-card:hover { 
+    border-color: rgba(255,92,53,0.4) !important; 
+    transform: translateY(-6px) !important; 
+    box-shadow: 0 16px 40px rgba(255,92,53,0.2) !important; 
+}
+
+.aiwu-template-img { 
+    width: 100% !important; 
+    height: 200px !important; 
+    object-fit: cover !important;
+    transition: transform 0.3s ease !important;
+}
+
+.aiwu-template-img-placeholder {
+    background: linear-gradient(135deg, rgba(255, 92, 53, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.aiwu-template-img-placeholder::before {
+    content: '📋' !important;
+    font-size: 48px !important;
+    opacity: 0.3 !important;
+}
+
+.aiwu-template-card:hover .aiwu-template-img {
+    transform: scale(1.05) !important;
+}
+
+.aiwu-template-content { padding: 24px !important; }
+
+.aiwu-template-name { 
+    font-size: 19px !important; 
+    font-weight: 700 !important; 
+    color: #ffffff !important;
+    line-height: 1.3 !important;
+    margin: 0 0 12px 0 !important;
+}
+
+.aiwu-template-desc { 
+    font-size: 14px !important; 
+    color: rgba(255,255,255,0.6) !important; 
+    line-height: 1.6 !important; 
+    margin: 0 0 16px 0 !important; 
+}
+
+.aiwu-template-labels {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+.aiwu-template-category {
+    background: rgba(139, 92, 246, 0.2) !important;
+    color: #a855f7 !important;
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.aiwu-difficulty-badge {
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.aiwu-difficulty-easy { 
+    background: rgba(34, 197, 94, 0.2) !important; 
+    color: #22c55e !important; 
+    border: 1px solid rgba(34, 197, 94, 0.3) !important; 
+}
+
+.aiwu-difficulty-medium { 
+    background: rgba(251, 146, 60, 0.2) !important; 
+    color: #fb923c !important; 
+    border: 1px solid rgba(251, 146, 60, 0.3) !important; 
+}
+
+.aiwu-difficulty-advanced { 
+    background: rgba(239, 68, 68, 0.2) !important; 
+    color: #ef4444 !important; 
+    border: 1px solid rgba(239, 68, 68, 0.3) !important; 
+}
+
+.aiwu-no-results {
+    text-align: center !important;
+    padding: 80px 20px !important;
+    display: none !important;
+}
+
+.aiwu-no-results.show { display: block !important; }
+
+.aiwu-no-results-icon {
+    font-size: 64px !important;
+    margin-bottom: 16px !important;
+    opacity: 0.3 !important;
+}
+
+.aiwu-no-results-text {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin-bottom: 8px !important;
+}
+
+.aiwu-no-results-hint {
+    font-size: 16px !important;
+    color: rgba(255,255,255,0.5) !important;
+}
+
+.aiwu-pagination {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 40px !important;
+}
+
+.aiwu-page-btn {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+    padding: 10px 16px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.aiwu-page-btn:disabled {
+    opacity: 0.3 !important;
+    cursor: not-allowed !important;
+}
+
+.aiwu-page-btn.active, .aiwu-page-btn:hover:not(:disabled) { 
+    background: linear-gradient(135deg, #FF5C35 0%, #E04A2B 100%) !important; 
+    color: #fff !important; 
+    border-color: #FF5C35 !important; 
+}
+
+.aiwu-page-dots {
+    color: rgba(255,255,255,0.5) !important;
+    padding: 0 4px !important;
+}
+
+/* Single Template Styles */
+
+.aiwu-template-detail,
+.aiwu-template-detail * {
+    box-sizing: border-box !important;
+}
+
+.aiwu-template-detail {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+    background: linear-gradient(135deg, #0f1419 0%, #1a252f 100%) !important;
+    min-height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: relative !important;
+}
+
+.aiwu-template-detail::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: radial-gradient(circle at 20% 30%, rgba(255, 92, 53, 0.08) 0%, transparent 50%), 
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 50%) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+.aiwu-template-container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+    padding: 40px 20px !important;
+}
+
+.aiwu-breadcrumbs {
+    margin-bottom: 24px !important;
+    font-size: 14px !important;
+    padding: 16px 24px !important;
+    background: rgba(12, 8, 28, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.aiwu-breadcrumbs ol {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.aiwu-breadcrumbs li {
+    display: flex !important;
+    align-items: center !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.aiwu-breadcrumbs li:not(:last-child)::after {
+    content: '›' !important;
+    margin-left: 8px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 16px !important;
+}
+
+.aiwu-breadcrumbs a {
+    color: rgba(255, 255, 255, 0.85) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.aiwu-breadcrumbs a:hover {
+    color: #FF5C35 !important;
+}
+
+.aiwu-breadcrumbs li:last-child {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.aiwu-template-back {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    margin-bottom: 32px !important;
+    transition: all 0.3s ease !important;
+    padding: 0 !important;
+}
+
+.aiwu-template-back:hover {
+    color: #FF5C35 !important;
+    transform: translateX(-4px) !important;
+}
+
+.aiwu-template-back svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.aiwu-template-hero {
+    background: rgba(12, 8, 28, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 24px !important;
+    padding: 40px !important;
+    margin-bottom: 40px !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.aiwu-template-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: start !important;
+    margin-bottom: 24px !important;
+    gap: 24px !important;
+}
+
+.aiwu-template-title-group {
+    flex: 1 !important;
+}
+
+.aiwu-template-title {
+    font-size: clamp(28px, 4vw, 42px) !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin: 0 0 16px 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+}
+
+.aiwu-template-meta {
+    display: flex !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+}
+
+.aiwu-template-badge {
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    display: inline-block !important;
+}
+
+.aiwu-badge-category {
+    background: rgba(139, 92, 246, 0.2) !important;
+    color: #a855f7 !important;
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+.aiwu-badge-difficulty {
+    background: rgba(34, 197, 94, 0.2) !important;
+    color: #22c55e !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+}
+
+.aiwu-template-description {
+    font-size: 18px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.aiwu-template-preview {
+    margin-top: 32px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.aiwu-preview-image {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    cursor: zoom-in !important;
+    transition: transform 0.3s ease !important;
+}
+
+.aiwu-preview-image:hover {
+    transform: scale(1.02) !important;
+}
+
+.aiwu-template-steps {
+    background: rgba(12, 8, 28, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 24px !important;
+    padding: 40px !important;
+    margin-bottom: 40px !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.aiwu-steps-title {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 32px 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.aiwu-step-item {
+    display: flex !important;
+    gap: 20px !important;
+    margin-bottom: 32px !important;
+    padding: 24px !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    transition: all 0.3s ease !important;
+}
+
+.aiwu-step-item:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-color: rgba(255, 92, 53, 0.2) !important;
+}
+
+.aiwu-step-item:last-child {
+    margin-bottom: 0 !important;
+}
+
+.aiwu-step-number {
+    width: 48px !important;
+    height: 48px !important;
+    background: linear-gradient(135deg, rgba(255, 92, 53, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%) !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: #FF5C35 !important;
+    flex-shrink: 0 !important;
+}
+
+.aiwu-step-content {
+    flex: 1 !important;
+}
+
+.aiwu-step-title {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+}
+
+.aiwu-step-description {
+    font-size: 15px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    line-height: 1.6 !important;
+    margin: 0 0 12px 0 !important;
+    padding: 0 !important;
+}
+
+.aiwu-step-description p {
+    margin: 0 0 12px 0 !important;
+}
+
+.aiwu-step-description p:last-child {
+    margin-bottom: 0 !important;
+}
+
+.aiwu-step-description ul,
+.aiwu-step-description ol {
+    margin: 12px 0 !important;
+    padding-left: 24px !important;
+}
+
+.aiwu-step-description li {
+    margin-bottom: 8px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.aiwu-step-description strong {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 700 !important;
+}
+
+.aiwu-step-description a {
+    color: #FF5C35 !important;
+    text-decoration: underline !important;
+}
+
+.aiwu-step-description a:hover {
+    color: #ff7a5c !important;
+}
+
+.aiwu-step-image-wrapper {
+    margin: 16px 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.aiwu-step-image {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
+
+.aiwu-step-config {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 12px !important;
+    padding: 16px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+.aiwu-config-item {
+    display: flex !important;
+    gap: 8px !important;
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.aiwu-config-label {
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.aiwu-template-tips {
+    background: rgba(12, 8, 28, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 24px !important;
+    padding: 40px !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.aiwu-tips-title {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 24px 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.aiwu-tips-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.aiwu-tip-item {
+    display: flex !important;
+    gap: 12px !important;
+    font-size: 15px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    line-height: 1.6 !important;
+}
+
+.aiwu-tip-icon {
+    flex-shrink: 0 !important;
+    margin-top: 2px !important;
+}
+
+/* CTA Section */
+.aiwu-cta-section {
+    background: linear-gradient(135deg, rgba(12, 8, 28, 0.95) 0%, rgba(26, 37, 47, 0.95) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 24px !important;
+    padding: 60px 40px !important;
+    margin-top: 60px !important;
+    backdrop-filter: blur(10px) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+.aiwu-cta-section::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -50% !important;
+    right: -20% !important;
+    width: 500px !important;
+    height: 500px !important;
+    background: radial-gradient(circle, rgba(255, 92, 53, 0.2) 0%, transparent 70%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+}
+
+.aiwu-cta-section::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -30% !important;
+    left: -10% !important;
+    width: 400px !important;
+    height: 400px !important;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+}
+
+.aiwu-cta-content {
+    position: relative !important;
+    z-index: 2 !important;
+    text-align: center !important;
+}
+
+.aiwu-cta-title {
+    font-size: 36px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin: 0 0 16px 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.aiwu-cta-description {
+    font-size: 18px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    line-height: 1.6 !important;
+    margin: 0 0 40px 0 !important;
+    max-width: 700px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.aiwu-cta-features {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    gap: 24px !important;
+    margin: 0 0 40px 0 !important;
+    max-width: 900px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.aiwu-cta-feature {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    padding: 24px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 16px !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+.aiwu-cta-feature:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 92, 53, 0.5) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(255, 92, 53, 0.2) !important;
+}
+
+.aiwu-cta-feature-icon {
+    width: 48px !important;
+    height: 48px !important;
+    background: linear-gradient(135deg, rgba(255, 92, 53, 0.4) 0%, rgba(168, 85, 247, 0.4) 100%) !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 24px !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 4px 12px rgba(255, 92, 53, 0.3) !important;
+}
+
+.aiwu-cta-feature-text {
+    text-align: left !important;
+}
+
+.aiwu-cta-feature-title {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 4px 0 !important;
+    line-height: 1.3 !important;
+}
+
+.aiwu-cta-feature-desc {
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+}
+
+.aiwu-cta-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: linear-gradient(135deg, #FF5C35 0%, #a855f7 100%) !important;
+    color: #ffffff !important;
+    padding: 16px 32px !important;
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 16px rgba(255, 92, 53, 0.3) !important;
+}
+
+.aiwu-cta-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(255, 92, 53, 0.4) !important;
+}
+
+.aiwu-cta-arrow {
+    font-size: 20px !important;
+    transition: transform 0.3s ease !important;
+}
+
+.aiwu-cta-button:hover .aiwu-cta-arrow {
+    transform: translateX(4px) !important;
+}
+
+@media (max-width: 1024px) { 
+    .aiwu-templates-grid { grid-template-columns: repeat(2, 1fr) !important; } 
+}
+
+@media (max-width: 768px) { 
+    .aiwu-templates-grid { grid-template-columns: 1fr !important; }
+    .aiwu-filters-bar { flex-direction: column !important; align-items: stretch !important; }
+    .aiwu-filters-left { flex-direction: column !important; width: 100% !important; }
+    .aiwu-search-wrapper { max-width: 100% !important; min-width: 100% !important; }
+    .aiwu-filter-select { width: 100% !important; }
+    .aiwu-clear-btn { width: 100% !important; }
+    .aiwu-results-count { margin-left: 0 !important; text-align: center !important; }
+    
+    .aiwu-templates-inner {
+        padding: 40px 15px !important;
+    }
+    
+    .aiwu-template-detail {
+        padding: 0 !important;
+    }
+    
+    .aiwu-template-container {
+        padding: 20px 15px !important;
+    }
+
+    .aiwu-template-hero {
+        padding: 24px !important;
+    }
+
+    .aiwu-template-header {
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+
+    .aiwu-template-steps {
+        padding: 24px !important;
+    }
+
+    .aiwu-step-item {
+        flex-direction: column !important;
+        gap: 16px !important;
+        padding: 20px !important;
+    }
+
+    .aiwu-template-tips {
+        padding: 24px !important;
+    }
+    
+    .aiwu-cta-section {
+        padding: 40px 24px !important;
+        margin-top: 40px !important;
+    }
+    
+    .aiwu-cta-title {
+        font-size: 28px !important;
+    }
+    
+    .aiwu-cta-description {
+        font-size: 16px !important;
+    }
+    
+    .aiwu-cta-features {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    .aiwu-cta-feature {
+        padding: 20px !important;
+    }
+}
