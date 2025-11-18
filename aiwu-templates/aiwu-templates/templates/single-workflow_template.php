@@ -70,6 +70,25 @@
         </p>
       <?php endif; ?>
 
+      <?php
+      $integrations = get_post_meta(get_the_ID(), '_template_integrations', true);
+      if (!empty($integrations) && is_array($integrations)):
+      ?>
+        <div class="aiwu-single-integrations">
+          <h3 class="aiwu-single-integrations-title">Integrations Used</h3>
+          <div class="aiwu-single-integrations-grid">
+            <?php foreach ($integrations as $icon_id):
+              $icon_url = wp_get_attachment_image_url($icon_id, 'thumbnail');
+              if ($icon_url):
+            ?>
+              <div class="aiwu-single-integration-item">
+                <img src="<?php echo esc_url($icon_url); ?>" alt="Integration icon">
+              </div>
+            <?php endif; endforeach; ?>
+          </div>
+        </div>
+      <?php endif; ?>
+
       <?php if ($thumb || $preview_image): ?>
         <div class="aiwu-template-preview">
           <img

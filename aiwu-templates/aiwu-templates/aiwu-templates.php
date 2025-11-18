@@ -101,6 +101,7 @@ class AIWU_Templates {
     
     public function add_meta_boxes() {
         add_meta_box('template_details', 'Template Details', [$this, 'render_details_box'], 'workflow_template', 'normal', 'high');
+        add_meta_box('template_integrations', 'Integration Icons', [$this, 'render_integrations_box'], 'workflow_template', 'normal', 'high');
         add_meta_box('template_steps', 'Setup Steps', [$this, 'render_steps_box'], 'workflow_template', 'normal', 'high');
         add_meta_box('template_tips', 'Pro Tips', [$this, 'render_tips_box'], 'workflow_template', 'normal', 'default');
     }
@@ -191,7 +192,71 @@ class AIWU_Templates {
         </script>
         <?php
     }
-    
+
+    public function render_integrations_box($post) {
+        $integrations = get_post_meta($post->ID, '_template_integrations', true);
+        if (!is_array($integrations)) $integrations = [];
+        ?>
+        <div id="integrations-container">
+            <p style="margin-bottom:15px;color:#666;">
+                Upload small icon images (recommended: 64x64px, square format) for integrations used in this template.
+            </p>
+            <div class="integrations-list" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+                <?php foreach ($integrations as $index => $icon_id):
+                    $icon_url = wp_get_attachment_image_url($icon_id, 'thumbnail');
+                    if ($icon_url):
+                ?>
+                    <div class="integration-item" style="position:relative;width:64px;height:64px;border:2px solid #ddd;border-radius:8px;overflow:hidden;">
+                        <img src="<?php echo esc_url($icon_url); ?>" style="width:100%;height:100%;object-fit:cover;">
+                        <input type="hidden" name="integrations[]" value="<?php echo esc_attr($icon_id); ?>">
+                        <button type="button" class="remove-integration" style="position:absolute;top:2px;right:2px;background:#f00;color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:12px;line-height:1;padding:0;">×</button>
+                    </div>
+                <?php endif; endforeach; ?>
+            </div>
+            <button type="button" id="add-integration" class="button button-primary">+ Add Integration Icon</button>
+        </div>
+
+        <script>
+        jQuery(document).ready(function($) {
+            // Add integration icon
+            $('#add-integration').on('click', function(e) {
+                e.preventDefault();
+
+                const mediaUploader = wp.media({
+                    title: 'Choose Integration Icon',
+                    button: { text: 'Add Icon' },
+                    multiple: true,
+                    library: { type: 'image' }
+                });
+
+                mediaUploader.on('select', function() {
+                    const selection = mediaUploader.state().get('selection');
+                    selection.each(function(attachment) {
+                        const data = attachment.toJSON();
+                        const html = `
+                            <div class="integration-item" style="position:relative;width:64px;height:64px;border:2px solid #ddd;border-radius:8px;overflow:hidden;">
+                                <img src="${data.url}" style="width:100%;height:100%;object-fit:cover;">
+                                <input type="hidden" name="integrations[]" value="${data.id}">
+                                <button type="button" class="remove-integration" style="position:absolute;top:2px;right:2px;background:#f00;color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:12px;line-height:1;padding:0;">×</button>
+                            </div>
+                        `;
+                        $('.integrations-list').append(html);
+                    });
+                });
+
+                mediaUploader.open();
+            });
+
+            // Remove integration icon
+            $(document).on('click', '.remove-integration', function(e) {
+                e.preventDefault();
+                $(this).closest('.integration-item').remove();
+            });
+        });
+        </script>
+        <?php
+    }
+
     public function render_steps_box($post) {
         $steps = get_post_meta($post->ID, '_template_steps', true);
         if (!is_array($steps)) $steps = [];
@@ -387,6 +452,14 @@ class AIWU_Templates {
             } else {
                 delete_post_meta($post_id, '_template_file_id');
             }
+        }
+
+        if (isset($_POST['integrations'])) {
+            $integrations = array_map('absint', $_POST['integrations']);
+            $integrations = array_filter($integrations);
+            update_post_meta($post_id, '_template_integrations', $integrations);
+        } else {
+            delete_post_meta($post_id, '_template_integrations');
         }
 
         if (isset($_POST['steps'])) {

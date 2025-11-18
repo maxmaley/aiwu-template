@@ -99,13 +99,15 @@ $all_difficulties = get_terms(['taxonomy' => 'template_difficulty', 'hide_empty'
 
         <?php if ($templates->have_posts()): ?>
             <div class="aiwu-templates-grid">
-                <?php while ($templates->have_posts()): $templates->the_post(); 
+                <?php while ($templates->have_posts()): $templates->the_post();
                     $categories = wp_get_post_terms(get_the_ID(), 'template_category');
                     $difficulties = wp_get_post_terms(get_the_ID(), 'template_difficulty');
                     $desc = get_post_meta(get_the_ID(), '_template_description', true);
                     $preview = get_post_meta(get_the_ID(), '_template_preview_image', true);
                     $thumb = get_the_post_thumbnail_url(get_the_ID(), 'large');
                     $img_url = $thumb ?: $preview;
+                    $integrations = get_post_meta(get_the_ID(), '_template_integrations', true);
+                    if (!is_array($integrations)) $integrations = [];
                 ?>
                     <a href="<?php the_permalink(); ?>" class="aiwu-template-card">
                         <?php if ($img_url): ?>
@@ -118,6 +120,23 @@ $all_difficulties = get_terms(['taxonomy' => 'template_difficulty', 'hide_empty'
                             <?php if ($desc): ?>
                                 <p class="aiwu-template-desc"><?php echo esc_html($desc); ?></p>
                             <?php endif; ?>
+
+                            <?php if (!empty($integrations)): ?>
+                                <div class="aiwu-template-integrations">
+                                    <?php
+                                    $display_count = min(4, count($integrations));
+                                    for ($i = 0; $i < $display_count; $i++):
+                                        $icon_url = wp_get_attachment_image_url($integrations[$i], 'thumbnail');
+                                        if ($icon_url):
+                                    ?>
+                                        <img src="<?php echo esc_url($icon_url); ?>" class="aiwu-integration-icon" alt="Integration icon">
+                                    <?php endif; endfor; ?>
+                                    <?php if (count($integrations) > 4): ?>
+                                        <span class="aiwu-integration-more">+<?php echo count($integrations) - 4; ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+
                             <div class="aiwu-template-labels">
                                 <?php if (!empty($categories)): ?>
                                     <?php foreach ($categories as $cat): ?>
