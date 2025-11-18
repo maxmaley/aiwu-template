@@ -717,6 +717,119 @@
     margin-top: 2px !important;
 }
 
+/* ============================================
+   INTEGRATION ICONS - COMMON STYLES
+   ============================================ */
+
+/* Container for integration icons */
+.aiwu-integrations-preview,
+.aiwu-integrations-list {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 16px !important;
+}
+
+/* Single integration icon */
+.aiwu-integration-icon {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 8px !important;
+    background: #2e2e2e !important;
+    padding: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform 0.2s ease !important;
+    cursor: pointer !important;
+    position: relative !important;
+}
+
+.aiwu-integration-icon:hover {
+    transform: translateY(-2px) !important;
+}
+
+/* Image inside icon */
+.aiwu-integration-icon img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+/* Initials (when no image) */
+.aiwu-integration-initials {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: white !important;
+    text-transform: uppercase !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border-radius: 4px !important;
+}
+
+/* +N badge */
+.aiwu-integration-more {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 8px !important;
+    background: #1a1a1a !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* ============================================
+   ARCHIVE PAGE - PREVIEW IN CARDS
+   ============================================ */
+
+.aiwu-integrations-preview {
+    padding: 16px 16px 0 16px !important;
+    margin-bottom: 0 !important;
+}
+
+/* ============================================
+   SINGLE PAGE - FULL LIST
+   ============================================ */
+
+.aiwu-integrations-list {
+    margin-top: 12px !important;
+}
+
+/* ============================================
+   INTEGRATIONS FILTER
+   ============================================ */
+
+.aiwu-filter-integrations {
+    min-width: 200px !important;
+    max-width: 300px !important;
+}
+
+/* Multiple select styling */
+.aiwu-filter-integrations[multiple] {
+    height: auto !important;
+    min-height: 38px !important;
+    padding: 4px !important;
+}
+
+.aiwu-filter-integrations[multiple] option {
+    padding: 6px 8px !important;
+    border-radius: 4px !important;
+    margin: 2px 0 !important;
+}
+
+.aiwu-filter-integrations[multiple] option:checked {
+    background: #667eea !important;
+    color: white !important;
+}
+
 /* CTA Section */
 .aiwu-cta-section {
     background: linear-gradient(135deg, rgba(12, 8, 28, 0.95) 0%, rgba(26, 37, 47, 0.95) 100%) !important;
@@ -874,14 +987,26 @@
     .aiwu-templates-grid { grid-template-columns: repeat(2, 1fr) !important; } 
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
     .aiwu-templates-grid { grid-template-columns: 1fr !important; }
     .aiwu-filters-bar { flex-direction: column !important; align-items: stretch !important; }
     .aiwu-filters-left { flex-direction: column !important; width: 100% !important; }
     .aiwu-search-wrapper { max-width: 100% !important; min-width: 100% !important; }
     .aiwu-filter-select { width: 100% !important; }
+    .aiwu-filter-integrations { min-width: 100% !important; max-width: 100% !important; }
     .aiwu-clear-btn { width: 100% !important; }
     .aiwu-results-count { margin-left: 0 !important; text-align: center !important; }
+
+    /* Integration icons responsive */
+    .aiwu-integration-icon,
+    .aiwu-integration-more {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .aiwu-integration-initials {
+        font-size: 12px !important;
+    }
     
     .aiwu-templates-inner {
         padding: 40px 15px !important;

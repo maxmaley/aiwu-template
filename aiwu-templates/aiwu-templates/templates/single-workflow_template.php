@@ -61,6 +61,28 @@
               <?php endforeach; ?>
             <?php endif; ?>
           </div>
+
+          <?php
+          $integrations = wp_get_post_terms(get_the_ID(), 'template_integration', ['orderby' => 'name']);
+          if (!empty($integrations)):
+          ?>
+            <div class="aiwu-integrations-list">
+              <?php foreach ($integrations as $integration):
+                  $icon_id = get_term_meta($integration->term_id, 'icon_image_id', true);
+                  $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+              ?>
+                <div class="aiwu-integration-icon" title="<?php echo esc_attr($integration->name); ?>">
+                  <?php if ($icon_url): ?>
+                    <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($integration->name); ?>">
+                  <?php else:
+                    $initials = aiwu_get_integration_initials($integration->name);
+                  ?>
+                    <span class="aiwu-integration-initials"><?php echo esc_html($initials); ?></span>
+                  <?php endif; ?>
+                </div>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
 
