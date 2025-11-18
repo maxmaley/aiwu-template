@@ -48,6 +48,15 @@ if ($difficulty) {
     ];
 }
 
+if (!empty($_GET['integrations'])) {
+    $tax_query[] = [
+        'taxonomy' => 'template_integration',
+        'field' => 'slug',
+        'terms' => array_map('sanitize_text_field', (array)$_GET['integrations']),
+        'operator' => 'IN'
+    ];
+}
+
 if (!empty($tax_query)) {
     $args['tax_query'] = $tax_query;
 }
@@ -58,6 +67,7 @@ $total_found = $templates->found_posts;
 // Get all terms for filters
 $all_categories = get_terms(['taxonomy' => 'template_category', 'hide_empty' => false]);
 $all_difficulties = get_terms(['taxonomy' => 'template_difficulty', 'hide_empty' => false]);
+$all_integrations = get_terms(['taxonomy' => 'template_integration', 'hide_empty' => false, 'orderby' => 'name']);
 ?>
 
 <div class="aiwu-templates-container">
@@ -89,6 +99,17 @@ $all_difficulties = get_terms(['taxonomy' => 'template_difficulty', 'hide_empty'
                         </option>
                     <?php endforeach; ?>
                 </select>
+                <select name="integrations[]" multiple class="aiwu-filter-select aiwu-filter-integrations">
+                    <option value="">All Integrations</option>
+                    <?php
+                    $selected_integrations = isset($_GET['integrations']) ? (array)$_GET['integrations'] : [];
+                    foreach ($all_integrations as $int):
+                    ?>
+                        <option value="<?php echo esc_attr($int->slug); ?>" <?php echo in_array($int->slug, $selected_integrations) ? 'selected' : ''; ?>>
+                            <?php echo esc_html($int->name); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
                 <button type="submit" class="aiwu-clear-btn aiwu-apply-btn">Apply</button>
                 <a href="<?php echo get_post_type_archive_link('workflow_template'); ?>" class="aiwu-clear-btn">Clear all</a>
             </div>
@@ -99,19 +120,38 @@ $all_difficulties = get_terms(['taxonomy' => 'template_difficulty', 'hide_empty'
 
         <?php if ($templates->have_posts()): ?>
             <div class="aiwu-templates-grid">
-                <?php while ($templates->have_posts()): $templates->the_post(); 
+                <?php while ($templates->have_posts()): $templates->the_post();
                     $categories = wp_get_post_terms(get_the_ID(), 'template_category');
                     $difficulties = wp_get_post_terms(get_the_ID(), 'template_difficulty');
+                    $integrations = wp_get_post_terms(get_the_ID(), 'template_integration', ['orderby' => 'name']);
                     $desc = get_post_meta(get_the_ID(), '_template_description', true);
-                    $preview = get_post_meta(get_the_ID(), '_template_preview_image', true);
-                    $thumb = get_the_post_thumbnail_url(get_the_ID(), 'large');
-                    $img_url = $thumb ?: $preview;
                 ?>
                     <a href="<?php the_permalink(); ?>" class="aiwu-template-card">
-                        <?php if ($img_url): ?>
-                            <img src="<?php echo esc_url($img_url); ?>" class="aiwu-template-img" alt="<?php echo esc_attr(get_the_title()); ?> workflow template">
-                        <?php else: ?>
-                            <div class="aiwu-template-img aiwu-template-img-placeholder"></div>
+                        <?php if (!empty($integrations)): ?>
+                            <div class="aiwu-integrations-preview">
+                                <?php
+                                $visible = array_slice($integrations, 0, 3);
+                                $remaining = count($integrations) - 3;
+
+                                foreach ($visible as $integration):
+                                    $icon_id = get_term_meta($integration->term_id, 'icon_image_id', true);
+                                    $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+                                ?>
+                                    <div class="aiwu-integration-icon" title="<?php echo esc_attr($integration->name); ?>">
+                                        <?php if ($icon_url): ?>
+                                            <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($integration->name); ?>">
+                                        <?php else:
+                                            $initials = aiwu_get_integration_initials($integration->name);
+                                        ?>
+                                            <span class="aiwu-integration-initials"><?php echo esc_html($initials); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endforeach; ?>
+
+                                <?php if ($remaining > 0): ?>
+                                    <div class="aiwu-integration-more">+<?php echo $remaining; ?></div>
+                                <?php endif; ?>
+                            </div>
                         <?php endif; ?>
                         <div class="aiwu-template-content">
                             <h2 class="aiwu-template-name"><?php the_title(); ?></h2>
@@ -147,7 +187,8 @@ $all_difficulties = get_terms(['taxonomy' => 'template_difficulty', 'hide_empty'
                     $base_url = add_query_arg([
                         's' => $search,
                         'category' => $category,
-                        'difficulty' => $difficulty
+                        'difficulty' => $difficulty,
+                        'integrations' => isset($_GET['integrations']) ? $_GET['integrations'] : []
                     ], get_post_type_archive_link('workflow_template'));
                     
                     // Previous button

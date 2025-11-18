@@ -20,7 +20,13 @@ class AIWU_Templates {
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_scripts']);
         add_filter('astra_page_layout', [$this, 'set_full_width']);
         add_filter('astra_get_content_layout', [$this, 'set_full_width']);
-        
+
+        // Integration icon meta hooks
+        add_action('template_integration_add_form_fields', [$this, 'add_integration_icon_field']);
+        add_action('template_integration_edit_form_fields', [$this, 'edit_integration_icon_field']);
+        add_action('created_template_integration', [$this, 'save_integration_icon']);
+        add_action('edited_template_integration', [$this, 'save_integration_icon']);
+
         // SEO hooks
         add_action('wp_head', [$this, 'add_meta_tags']);
         add_action('wp_head', [$this, 'add_schema_markup']);
@@ -95,6 +101,27 @@ class AIWU_Templates {
             'show_admin_column' => true,
             'query_var' => true,
             'rewrite' => ['slug' => 'difficulty'],
+            'show_in_rest' => true,
+        ]);
+
+        // Integration taxonomy
+        register_taxonomy('template_integration', 'workflow_template', [
+            'hierarchical' => false,
+            'labels' => [
+                'name' => 'Integration Technologies',
+                'singular_name' => 'Integration',
+                'search_items' => 'Search Integrations',
+                'all_items' => 'All Integrations',
+                'edit_item' => 'Edit Integration',
+                'update_item' => 'Update Integration',
+                'add_new_item' => 'Add New Integration',
+                'new_item_name' => 'New Integration Name',
+                'menu_name' => 'Integrations',
+            ],
+            'show_ui' => true,
+            'show_admin_column' => true,
+            'query_var' => true,
+            'rewrite' => ['slug' => 'integration'],
             'show_in_rest' => true,
         ]);
     }
@@ -432,6 +459,15 @@ class AIWU_Templates {
         if ($post_type === 'workflow_template' && ($hook === 'post.php' || $hook === 'post-new.php')) {
             wp_enqueue_media();
         }
+
+        // Enqueue media uploader for integration taxonomy pages
+        if ($hook === 'edit-tags.php' || $hook === 'term.php') {
+            global $taxonomy;
+            if ($taxonomy === 'template_integration') {
+                wp_enqueue_media();
+                wp_enqueue_script('aiwu-integration-icon', plugin_dir_url(__FILE__) . 'assets/integration-icon.js', ['jquery'], '1.0.0', true);
+            }
+        }
     }
     
     // SEO Functions
@@ -526,6 +562,76 @@ class AIWU_Templates {
             echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>' . "\n";
         }
     }
+
+    // Integration Icon Meta Fields
+
+    public function add_integration_icon_field() {
+        ?>
+        <div class="form-field">
+            <label for="icon_image_id"><?php _e('Icon Image'); ?></label>
+            <input type="hidden" id="icon_image_id" name="icon_image_id" value="">
+            <button type="button" id="upload_icon_button" class="button"><?php _e('Upload Icon'); ?></button>
+            <div id="icon_preview" style="margin-top:10px;"></div>
+            <p class="description"><?php _e('Upload an icon for this integration (SVG, PNG recommended)'); ?></p>
+        </div>
+        <?php
+    }
+
+    public function edit_integration_icon_field($term) {
+        $icon_id = get_term_meta($term->term_id, 'icon_image_id', true);
+        $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+        ?>
+        <tr class="form-field">
+            <th scope="row">
+                <label for="icon_image_id"><?php _e('Icon Image'); ?></label>
+            </th>
+            <td>
+                <input type="hidden" id="icon_image_id" name="icon_image_id" value="<?php echo esc_attr($icon_id); ?>">
+
+                <?php if ($icon_url): ?>
+                    <div id="icon_preview" style="margin-bottom:10px;">
+                        <img src="<?php echo esc_url($icon_url); ?>" style="max-width:80px;max-height:80px;display:block;margin-bottom:10px;">
+                    </div>
+                    <button type="button" id="upload_icon_button" class="button"><?php _e('Change Icon'); ?></button>
+                    <button type="button" id="remove_icon_button" class="button"><?php _e('Remove Icon'); ?></button>
+                <?php else: ?>
+                    <div id="icon_preview" style="margin-bottom:10px;"></div>
+                    <button type="button" id="upload_icon_button" class="button"><?php _e('Upload Icon'); ?></button>
+                    <button type="button" id="remove_icon_button" class="button" style="display:none;"><?php _e('Remove Icon'); ?></button>
+                <?php endif; ?>
+
+                <p class="description"><?php _e('Upload an icon for this integration (SVG, PNG recommended)'); ?></p>
+            </td>
+        </tr>
+        <?php
+    }
+
+    public function save_integration_icon($term_id) {
+        if (isset($_POST['icon_image_id'])) {
+            update_term_meta($term_id, 'icon_image_id', absint($_POST['icon_image_id']));
+        } else {
+            delete_term_meta($term_id, 'icon_image_id');
+        }
+    }
+}
+
+/**
+ * Get initials from integration name
+ *
+ * @param string $name Integration name
+ * @return string Initials (2 letters)
+ */
+function aiwu_get_integration_initials($name) {
+    $name = trim($name);
+    $words = preg_split('/\s+/', $name);
+
+    if (count($words) >= 2) {
+        // Two letters from first two words: "Open AI" → "OA"
+        return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+    }
+
+    // First two letters of single word: "Telegram" → "TE"
+    return strtoupper(substr($name, 0, 2));
 }
 
 new AIWU_Templates();
