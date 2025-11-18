@@ -72,14 +72,58 @@
 
       <?php if ($thumb || $preview_image): ?>
         <div class="aiwu-template-preview">
-          <img 
-            src="<?php echo esc_url($thumb ?: $preview_image); ?>" 
-            alt="<?php echo esc_attr(get_the_title()); ?> workflow template preview" 
+          <img
+            src="<?php echo esc_url($thumb ?: $preview_image); ?>"
+            alt="<?php echo esc_attr(get_the_title()); ?> workflow template preview"
             title="<?php echo esc_attr(get_the_title()); ?> automation workflow"
             class="aiwu-preview-image"
             loading="lazy">
         </div>
       <?php endif; ?>
+
+      <?php
+      $file_id = get_post_meta(get_the_ID(), '_template_file_id', true);
+      if (!empty($file_id)):
+          $file_url = wp_get_attachment_url($file_id);
+          $file_path = get_attached_file($file_id);
+          if ($file_url && file_exists($file_path)):
+              $file_name = basename($file_path);
+              $file_size = size_format(filesize($file_path));
+              $file_ext = strtoupper(pathinfo($file_name, PATHINFO_EXTENSION));
+      ?>
+        <div class="aiwu-template-download">
+          <div class="aiwu-download-card">
+            <div class="aiwu-download-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3V16M12 16L7 11M12 16L17 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 17V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="aiwu-download-info">
+              <div class="aiwu-download-title">Template File Available</div>
+              <div class="aiwu-download-meta">
+                <span class="aiwu-download-name"><?php echo esc_html($file_name); ?></span>
+                <span class="aiwu-download-separator">•</span>
+                <span class="aiwu-download-size"><?php echo esc_html($file_size); ?></span>
+                <?php if ($file_ext): ?>
+                  <span class="aiwu-download-separator">•</span>
+                  <span class="aiwu-download-type"><?php echo esc_html($file_ext); ?></span>
+                <?php endif; ?>
+              </div>
+            </div>
+            <a href="<?php echo esc_url($file_url); ?>"
+               class="aiwu-download-button"
+               download="<?php echo esc_attr($file_name); ?>"
+               title="Download <?php echo esc_attr($file_name); ?>">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3V16M12 16L7 11M12 16L17 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 17V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Download
+            </a>
+          </div>
+        </div>
+      <?php endif; endif; ?>
     </div>
 
     <?php if (!empty($steps) && is_array($steps)): ?>
