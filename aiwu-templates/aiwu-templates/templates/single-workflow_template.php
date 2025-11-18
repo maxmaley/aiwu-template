@@ -84,6 +84,22 @@
               <div class="aiwu-single-integration-item">
                 <img src="<?php echo esc_url($icon_url); ?>" alt="Integration icon">
               </div>
+            <?php else:
+              $attachment_title = get_the_title($icon_id);
+              $initials = '';
+              if ($attachment_title) {
+                $words = explode(' ', $attachment_title);
+                $initials = strtoupper(substr($words[0], 0, 1));
+                if (count($words) > 1) {
+                  $initials .= strtoupper(substr($words[1], 0, 1));
+                }
+              } else {
+                $initials = '?';
+              }
+            ?>
+              <div class="aiwu-single-integration-item aiwu-integration-placeholder">
+                <span class="aiwu-integration-initials"><?php echo esc_html($initials); ?></span>
+              </div>
             <?php endif; endforeach; ?>
           </div>
         </div>

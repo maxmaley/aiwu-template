@@ -130,6 +130,22 @@ $all_difficulties = get_terms(['taxonomy' => 'template_difficulty', 'hide_empty'
                                         if ($icon_url):
                                     ?>
                                         <img src="<?php echo esc_url($icon_url); ?>" class="aiwu-integration-icon" alt="Integration icon">
+                                    <?php else:
+                                        $attachment_title = get_the_title($integrations[$i]);
+                                        $initials = '';
+                                        if ($attachment_title) {
+                                            $words = explode(' ', $attachment_title);
+                                            $initials = strtoupper(substr($words[0], 0, 1));
+                                            if (count($words) > 1) {
+                                                $initials .= strtoupper(substr($words[1], 0, 1));
+                                            }
+                                        } else {
+                                            $initials = '?';
+                                        }
+                                    ?>
+                                        <span class="aiwu-integration-icon aiwu-integration-icon-placeholder">
+                                            <?php echo esc_html($initials); ?>
+                                        </span>
                                     <?php endif; endfor; ?>
                                     <?php if (count($integrations) > 4): ?>
                                         <span class="aiwu-integration-more">+<?php echo count($integrations) - 4; ?></span>

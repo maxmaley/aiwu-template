@@ -272,6 +272,18 @@
     padding: 4px !important;
 }
 
+.aiwu-integration-icon-placeholder {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, rgba(255, 92, 53, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%) !important;
+    border: 1px solid rgba(255, 92, 53, 0.3) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #FF5C35 !important;
+    padding: 0 !important;
+}
+
 .aiwu-integration-more {
     width: 32px !important;
     height: 32px !important;
@@ -606,6 +618,19 @@
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;
+}
+
+.aiwu-single-integration-item.aiwu-integration-placeholder {
+    background: linear-gradient(135deg, rgba(255, 92, 53, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%) !important;
+    border-color: rgba(255, 92, 53, 0.3) !important;
+}
+
+.aiwu-integration-initials {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: #FF5C35 !important;
+    display: block !important;
+    text-align: center !important;
 }
 
 .aiwu-template-preview {
