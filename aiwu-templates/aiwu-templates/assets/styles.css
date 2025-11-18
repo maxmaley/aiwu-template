@@ -533,6 +533,128 @@
     transform: scale(1.02) !important;
 }
 
+/* Download Section */
+.aiwu-template-download {
+    margin-top: 32px !important;
+}
+
+.aiwu-download-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    padding: 24px !important;
+    background: rgba(12, 8, 28, 0.8) !important;
+    border: 2px solid rgba(255, 92, 53, 0.3) !important;
+    border-radius: 16px !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.aiwu-download-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(135deg, rgba(255, 92, 53, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+}
+
+.aiwu-download-card:hover {
+    border-color: rgba(255, 92, 53, 0.6) !important;
+    background: rgba(12, 8, 28, 0.95) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(255, 92, 53, 0.2) !important;
+}
+
+.aiwu-download-icon {
+    width: 56px !important;
+    height: 56px !important;
+    background: linear-gradient(135deg, rgba(255, 92, 53, 0.3) 0%, rgba(168, 85, 247, 0.3) 100%) !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
+    color: #FF5C35 !important;
+}
+
+.aiwu-download-info {
+    flex: 1 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.aiwu-download-title {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 6px 0 !important;
+    padding: 0 !important;
+}
+
+.aiwu-download-meta {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    font-size: 13px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.aiwu-download-name {
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.aiwu-download-separator {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.aiwu-download-size,
+.aiwu-download-type {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.aiwu-download-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: linear-gradient(135deg, #FF5C35 0%, #a855f7 100%) !important;
+    color: #ffffff !important;
+    padding: 14px 28px !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(255, 92, 53, 0.3) !important;
+    position: relative !important;
+    z-index: 1 !important;
+    flex-shrink: 0 !important;
+}
+
+.aiwu-download-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(255, 92, 53, 0.5) !important;
+}
+
+.aiwu-download-button svg {
+    width: 20px !important;
+    height: 20px !important;
+    transition: transform 0.3s ease !important;
+}
+
+.aiwu-download-button:hover svg {
+    transform: translateY(2px) !important;
+}
+
 .aiwu-template-steps {
     background: rgba(12, 8, 28, 0.6) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -917,7 +1039,19 @@
     .aiwu-template-tips {
         padding: 24px !important;
     }
-    
+
+    .aiwu-download-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+        padding: 20px !important;
+    }
+
+    .aiwu-download-button {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
     .aiwu-cta-section {
         padding: 40px 24px !important;
         margin-top: 40px !important;
