@@ -107,9 +107,10 @@ class AIWU_Templates {
     
     public function render_details_box($post) {
         wp_nonce_field('aiwu_template_meta', 'aiwu_template_nonce');
-        
+
         $description = get_post_meta($post->ID, '_template_description', true);
         $preview_image = get_post_meta($post->ID, '_template_preview_image', true);
+        $file_id = get_post_meta($post->ID, '_template_file_id', true);
         ?>
         <p>
             <label><strong>Description:</strong></label><br>
@@ -120,6 +121,74 @@ class AIWU_Templates {
             <input type="url" name="template_preview_image" value="<?php echo esc_url($preview_image); ?>" style="width:100%">
             <small>Optional: Add a preview image URL or use Featured Image</small>
         </p>
+        <p>
+            <label><strong>Template File:</strong></label><br>
+            <input type="hidden" name="template_file_id" id="template-file-id" value="<?php echo esc_attr($file_id); ?>">
+            <button type="button" id="upload-template-file" class="button">
+                <?php echo !empty($file_id) ? 'Change Template File' : 'Upload Template File'; ?>
+            </button>
+            <button type="button" id="remove-template-file" class="button" style="<?php echo empty($file_id) ? 'display:none' : ''; ?>">Remove File</button>
+            <div id="template-file-info" style="margin-top:10px">
+                <?php
+                if (!empty($file_id)) {
+                    $file_url = wp_get_attachment_url($file_id);
+                    $file_name = basename(get_attached_file($file_id));
+                    $file_size = size_format(filesize(get_attached_file($file_id)));
+                    echo '<div style="padding:10px;background:#f0f0f0;border-left:3px solid #0073aa">';
+                    echo '<strong>' . esc_html($file_name) . '</strong><br>';
+                    echo '<small>Size: ' . esc_html($file_size) . '</small>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+            <small>Optional: Upload a template file that users can download</small>
+        </p>
+
+        <script>
+        jQuery(document).ready(function($) {
+            // Upload template file
+            $('#upload-template-file').on('click', function(e) {
+                e.preventDefault();
+
+                const mediaUploader = wp.media({
+                    title: 'Choose Template File',
+                    button: { text: 'Use this file' },
+                    multiple: false
+                });
+
+                mediaUploader.on('select', function() {
+                    const attachment = mediaUploader.state().get('selection').first().toJSON();
+                    $('#template-file-id').val(attachment.id);
+
+                    const fileSize = attachment.filesizeHumanReadable || '';
+                    const fileName = attachment.filename || attachment.title;
+
+                    $('#template-file-info').html(
+                        '<div style="padding:10px;background:#f0f0f0;border-left:3px solid #0073aa">' +
+                        '<strong>' + fileName + '</strong><br>' +
+                        '<small>Size: ' + fileSize + '</small>' +
+                        '</div>'
+                    );
+
+                    $('#upload-template-file').text('Change Template File');
+                    $('#remove-template-file').show();
+                });
+
+                mediaUploader.open();
+            });
+
+            // Remove template file
+            $('#remove-template-file').on('click', function(e) {
+                e.preventDefault();
+                if (confirm('Remove this file?')) {
+                    $('#template-file-id').val('');
+                    $('#template-file-info').empty();
+                    $('#upload-template-file').text('Upload Template File');
+                    $(this).hide();
+                }
+            });
+        });
+        </script>
         <?php
     }
     
@@ -302,15 +371,24 @@ class AIWU_Templates {
         if (!isset($_POST['aiwu_template_nonce']) || !wp_verify_nonce($_POST['aiwu_template_nonce'], 'aiwu_template_meta')) return;
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         if (!current_user_can('edit_post', $post_id)) return;
-        
+
         if (isset($_POST['template_description'])) {
             update_post_meta($post_id, '_template_description', sanitize_textarea_field($_POST['template_description']));
         }
-        
+
         if (isset($_POST['template_preview_image'])) {
             update_post_meta($post_id, '_template_preview_image', esc_url_raw($_POST['template_preview_image']));
         }
-        
+
+        if (isset($_POST['template_file_id'])) {
+            $file_id = absint($_POST['template_file_id']);
+            if ($file_id > 0) {
+                update_post_meta($post_id, '_template_file_id', $file_id);
+            } else {
+                delete_post_meta($post_id, '_template_file_id');
+            }
+        }
+
         if (isset($_POST['steps'])) {
             $steps = array_map(function($step) {
                 return [
